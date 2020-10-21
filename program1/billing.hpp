@@ -1,8 +1,14 @@
 #ifndef _billing_hpp_
 #define _billing_hpp_
 
+#include "histogram.hpp"
+
 #include <string>
+#include <iostream>
 #include <vector>
+#include <map>
+#include <iomanip>
+#include <algorithm>
 
 struct Polaczenie {
     unsigned dzien;

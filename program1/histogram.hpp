@@ -2,6 +2,8 @@
 #define _histogram_hpp_
 
 #include <vector>
+#include <algorithm>
+#include <cmath>
 
 class Histogram {
     public:
@@ -15,7 +17,7 @@ class Histogram {
 
     private:
         std::vector<float> dane_;
-        mutable bool stednia_akt_;
+        mutable bool srednia_akt_;
         mutable bool odchylenie_akt_;
         mutable float srednia_;
         mutable float odchylenie_;
