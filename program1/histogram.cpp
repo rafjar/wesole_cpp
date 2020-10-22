@@ -19,7 +19,7 @@ size_t Histogram::rozmiar() const {
 float Histogram::srednia() const {
     if(!srednia_akt_) {
         float srednia = 0;
-        std::for_each(dane_.begin(), dane_.end(), [&srednia](float val) {srednia += val;});
+        std::for_each(dane_.begin(), dane_.end(), [&srednia](const float &val) {srednia += val;});
 
         srednia_ = srednia / dane_.size();
         srednia_akt_ = true;
@@ -33,7 +33,7 @@ float Histogram::odchylenie() const {
         kwadratSredniej *= kwadratSredniej;
 
         float sredniaZKwadratow = 0;
-        std::for_each(dane_.begin(), dane_.end(), [&sredniaZKwadratow](float val) {sredniaZKwadratow += val*val;});
+        std::for_each(dane_.begin(), dane_.end(), [&sredniaZKwadratow](const float &val) {sredniaZKwadratow += val*val;});
         sredniaZKwadratow /= dane_.size();
 
         odchylenie_ = std::sqrt(sredniaZKwadratow - kwadratSredniej);
