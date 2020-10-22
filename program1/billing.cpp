@@ -49,6 +49,11 @@ void Billing::statystykaKrajowa(std::ostream &os) const {
 
     os << "Kraj" << std::setw(4) << "N." << std::setw(5) << " Sred." << std::setw(5) << " Odch." << std::setw(5) << " Min." << std::setw(6) << " Max." << std::endl;
     for(auto it=statystyka.begin(); it!=statystyka.end(); it++) {
-        os << it->first << ": " << std::setw(4) << it->second.rozmiar() << ' ' << std::setprecision(4) << std::setw(5) << it->second.srednia() << ' ' << std::setprecision(4) << std::setw(5) << it->second.odchylenie() << ' ' << std::setw(5) << it->second.min() << ' ' << std::setw(5) << it->second.max() << std::endl;
+        os << it->first << ": " << std::setw(4) 
+           << it->second.rozmiar() << ' ' << std::setprecision(4) << std::setw(5) 
+           << it->second.srednia() << ' ' << std::setprecision(4) << std::setw(5) 
+           << it->second.odchylenie() << ' ' << std::setw(5) 
+           << it->second.min() << ' ' << std::setw(5) 
+           << it->second.max() << std::endl;
     }
 }
