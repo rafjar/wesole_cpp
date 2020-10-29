@@ -4,13 +4,15 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include <algorithm>
+#include <cmath>
 
 typedef std::map<std::string, float> ParametryRozkladu;
 
 class Rozklad {
     public:
         explicit Rozklad(const std::vector<float> &dane);
-        virtual ~Rozklad() {}
+        virtual ~Rozklad() {};
         virtual std::unique_ptr<ParametryRozkladu> oblicz() const = 0;
 
     protected:
@@ -20,12 +22,28 @@ class Rozklad {
 class RozkladGaussa : public Rozklad {
     public:
         explicit RozkladGaussa(const std::vector<float> &dane);
-        virtual ~RozkladGaussa();
+        ~RozkladGaussa() {};
         virtual std::unique_ptr<ParametryRozkladu> oblicz() const;
         static Rozklad* kreator(const std::vector<float> &dane);
 };
 
-typedef Rozklad* (*KreatorRozkladu)(const std::vector<float> &);
+class RozkladPoissona : public Rozklad {
+    public:
+        explicit RozkladPoissona(const std::vector<float> &dane);
+        ~RozkladPoissona() {};
+        virtual std::unique_ptr<ParametryRozkladu> oblicz() const;
+        static Rozklad* kreator(const std::vector<float> &dane);
+};
+
+class RozkladLorentza : public Rozklad {
+    public:
+        explicit RozkladLorentza(const std::vector<float> &dane);
+        ~RozkladLorentza() {};
+        virtual std::unique_ptr<ParametryRozkladu> oblicz() const;
+        static Rozklad* kreator(const std::vector<float> &dane);
+};
+
+typedef Rozklad* (*KreatorRozkladu)(const std::vector<float> &dane);
 
 class FabrykaRozkladow {
     private:

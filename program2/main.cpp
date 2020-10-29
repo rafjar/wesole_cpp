@@ -1,6 +1,5 @@
 #include "dane_stat.hpp"
-
-#include <iostream>
+#include "rozklad.hpp"
 
 int main() {
     
