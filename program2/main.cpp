@@ -24,7 +24,9 @@ int main(int argc, char **argv) {
 
     // zmienna do wybierania opcji
     int wybor_r = 0, wybor = 0;
+
     while(wybor_r != -1 || wybor != -1) {
+        // Wybór pliku z listy
         std::cout << "Wybierz plik do analizy, lub wpisz '-1' aby zakończyć program" << std::endl;
         for(int i=0; i<(int)dane.size(); i++)
             std::cout << i << "\t" << dane[i]->nazwa() << std::endl;
@@ -34,6 +36,7 @@ int main(int argc, char **argv) {
         if(wybor==-1)
             return 0;
         
+        // Wybór badanego rozkładu z listy
         std::cout << "Wybierz badany rozklad, lub wpisz '-1' aby zakończyć program" << std::endl;
         for(int i=0; i<(int)FabrykaRozkladow::ilosc(); i++)
             std::cout << i << "\t" << FabrykaRozkladow::nazwa(i) << std::endl;
@@ -44,8 +47,10 @@ int main(int argc, char **argv) {
             return 0;
         std::cout << std::endl;
 
+        // Ustawienie wskaźniczka na odpowiedni plik i rozkład
         std::unique_ptr<Rozklad> rozkl(FabrykaRozkladow::utworz(wybor_r, dane[wybor]->dane()));
         
+        // Obliczonka i wypisanie na ekranik :>
         auto obliczone = rozkl->oblicz();
         for(auto const &i : *obliczone)
             std::cout << i.first << '\t' << i.second << std::endl;
