@@ -10,7 +10,7 @@ class DaneStat {
         DaneStat(const std::string &nazwa);
         virtual const std::vector<float> &dane() const = 0;
         virtual ~DaneStat() {};
-        virtual const std::string &nazwa() const = 0;
+        virtual const std::string &nazwa() const;
 
     protected:
         std::string nazwa_;
@@ -20,7 +20,6 @@ class DaneStatReal : public DaneStat {
     public:
         DaneStatReal(const std::string &nazwa);
         const std::vector<float> &dane() const;
-        const std::string &nazwa() const;
 
     private:
         std::vector<float> data_;
@@ -31,7 +30,6 @@ class DaneStatProxy : public DaneStat {
         DaneStatProxy(const std::string &nazwa);
         ~DaneStatProxy();
         virtual const std::vector<float> &dane() const;
-        const std::string &nazwa() const;
 
     private:
         mutable DaneStat *real_obj_;

@@ -8,7 +8,7 @@ RozkladGaussa::RozkladGaussa(const std::vector<float> &dane) : Rozklad(dane) {}
 std::unique_ptr<ParametryRozkladu> RozkladGaussa::oblicz() const {
     auto params = std::make_unique<ParametryRozkladu>();
 
-    float srednia = 0, sredniaZKwadratow = 0;
+    double srednia = 0, sredniaZKwadratow = 0;
     std::for_each(dane_.begin(), dane_.end(), [&srednia, &sredniaZKwadratow] (const float val) {srednia += val; sredniaZKwadratow += val*val;});
     srednia /= dane_.size();
     sredniaZKwadratow /= dane_.size();
