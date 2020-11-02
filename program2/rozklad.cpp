@@ -47,13 +47,18 @@ RozkladLorentza::RozkladLorentza(const std::vector<float> &dane) : Rozklad(dane)
 
 std::unique_ptr<ParametryRozkladu> RozkladLorentza::oblicz() const {
     auto params = std::make_unique<ParametryRozkladu>();
-    auto kopia_danych = dane_;
+    std::vector<float> kopia_danych(dane_.size());
 
-    std::sort(kopia_danych.begin(), kopia_danych.end());
+    std::partial_sort_copy(dane_.begin(), dane_.end(), kopia_danych.begin(), kopia_danych.end());
     auto size = kopia_danych.size();
     double lambda = size % 2 == 0 ? (kopia_danych[size/2 - 1] + kopia_danych[size/2])/2 : kopia_danych[size/2];
 
+    double srednia = 0;
+    std::for_each(dane_.begin(), dane_.end(), [&srednia](const float val) {srednia += val;});
+    srednia /= dane_.size();
+
     (*params)["median"] = lambda;
+    (*params)["mean"] = srednia;
 
     return params;
 }
