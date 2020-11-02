@@ -29,7 +29,7 @@ RozkladPoissona::RozkladPoissona(const std::vector<float> &dane) : Rozklad(dane)
 std::unique_ptr<ParametryRozkladu> RozkladPoissona::oblicz() const {
     auto params = std::make_unique<ParametryRozkladu>();
 
-    float srednia = 0;
+    double srednia = 0;
     std::for_each(dane_.begin(), dane_.end(), [&srednia](const float val) {srednia += val;});
     srednia /= dane_.size();
 
@@ -51,7 +51,7 @@ std::unique_ptr<ParametryRozkladu> RozkladLorentza::oblicz() const {
 
     std::sort(kopia_danych.begin(), kopia_danych.end());
     auto size = kopia_danych.size();
-    float lambda = size % 2 == 0 ? (kopia_danych[size/2 - 1] + kopia_danych[size/2])/2 : kopia_danych[size/2];
+    double lambda = size % 2 == 0 ? (kopia_danych[size/2 - 1] + kopia_danych[size/2])/2 : kopia_danych[size/2];
 
     (*params)["median"] = lambda;
 
