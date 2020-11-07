@@ -25,11 +25,13 @@ std::optional<Polozenie> KontrolerMnozenia::coMamLiczyc() {
 std::unique_ptr<Macierz> mnozenie_macierzy(const Macierz &m1, const Macierz &m2, int p) {
     auto macierz = std::make_unique<Macierz>(m1.rozmiar().first, m2.rozmiar().second);
     KontrolerMnozenia kontroler(m1, m2, *macierz);
-    MnozycielMacierzy mnozyciel(kontroler);
+    std::vector<MnozycielMacierzy*> mnozyciele(p);
 
     std::vector<std::thread> matrixThreads(p);
-    for(int i=0; i<p; i++)
-        matrixThreads[i] = std::thread(mnozyciel);
+    for(int i=0; i<p; i++) {
+        mnozyciele[i] = new MnozycielMacierzy(kontroler);
+        matrixThreads[i] = std::thread(*mnozyciele[i]);
+    }
 
     for(auto &watek : matrixThreads)
         watek.join();
