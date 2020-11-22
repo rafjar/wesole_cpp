@@ -6,11 +6,11 @@ Macierz::Macierz(int x, int y)
 }
 
 double Macierz::element(int x, int y) const {
-    return vals_[y_*y + x];
+    return vals_[x_*y + x];
 }
 
 double &Macierz::element(int x, int y) {
-    return vals_[y_*y + x];
+    return vals_[x_*y + x];
 }
 
 std::pair<int, int> Macierz::rozmiar() const {
