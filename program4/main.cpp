@@ -5,18 +5,20 @@
 #include <chrono>
 #include <iostream>
 
-const double A_PARAM = 0.2;
-Macierz macierz(800, 600);
-int end = 0;
-const double psi = 0.99;
-const double delta_t = 0.4;
-const int FLAME_SIZE = 5;
+const double A_PARAM = 0.2; // Stała do kolorowania
+const int xsize = 500, ysize = 500; // Rozmiary okienka
+Macierz macierz(xsize, ysize); // Macierz wartości temp pixeli
+int end = 0; // Zmienna do kończenia symulacji
+const double psi = 0.99; // Stała psi (ze wzorku)
+const double delta_t = 0.4; // Stała delta_t (ze wzorku)
+const int FLAME_SIZE = 5; // Rozmiar płomienia spawacza
 
 // Kolorowanie okienka
 BITMAP *koloruj(BITMAP *bmp) {
     auto wymiary = macierz.rozmiar();
     for(int x=0; x<wymiary.first; ++x) {
         for(int y=0; y<wymiary.second; ++y) {
+            // Fancy funkcje kolorowania - chociaż nie miałem pomysłu jak to zrobić ciekawiej :(
             int r = 255. / (1 + std::exp(-A_PARAM*macierz.element(x, y)));
             int g = 128. / (A_PARAM * macierz.element(x, y) + 1);
             int b = 255. / (1 + std::exp(-3*A_PARAM * macierz.element(x, y)));
@@ -43,7 +45,8 @@ END_OF_FUNCTION(zmiana_temp)
 // Funkcja przerwania myszy - dodawanie temp spawanym kwadracikom
 void przerwanie_myszy(int m) {
     if(m & (MOUSE_FLAG_MOVE | MOUSE_FLAG_LEFT_DOWN)) {
-        if(mouse_x > FLAME_SIZE && mouse_x < 799-FLAME_SIZE && mouse_y > FLAME_SIZE && mouse_y < 599-FLAME_SIZE) {
+        // Zwiększenia płomienia (płomień o wielkości 2FlameSize*2FlameSize)
+        if(mouse_x > FLAME_SIZE && mouse_x < xsize-1-FLAME_SIZE && mouse_y > FLAME_SIZE && mouse_y < ysize-1-FLAME_SIZE) {
             for(int x=0; x<FLAME_SIZE; ++x) {
                 for(int y=0; y<FLAME_SIZE; ++y) {
                     macierz.element(mouse_x+x, mouse_y+y) += 10.;
@@ -76,7 +79,7 @@ int main() {
 
     // Ustawienie kolorków i odpalenie wersji okienkowej
     set_color_depth(24);
-    if(set_gfx_mode(GFX_AUTODETECT_WINDOWED, 800, 600, 0, 0) != 0) {
+    if(set_gfx_mode(GFX_AUTODETECT_WINDOWED, xsize, ysize, 0, 0) != 0) {
         allegro_exit();
         std::cerr << "Blad inicjowania trybu graficznego!" << std::endl;
         return 1;
@@ -88,7 +91,7 @@ int main() {
     install_int_ex(zmiana_temp, BPS_TO_TIMER(25));
 
     // Utworzenie bitmapy i wyczyszczenie bufora klawiszy
-    BITMAP *bmp = create_bitmap(800, 600);
+    BITMAP *bmp = create_bitmap(xsize, ysize);
     clear_keybuf();
 
     // Pętla spawacza - odświeżanie ekranu co 40ms
@@ -99,7 +102,7 @@ int main() {
         if(diff_time > 40) {
             time = std::chrono::steady_clock::now();
             bmp = koloruj(bmp);
-            blit(bmp, screen, 0, 0, 0, 0, 800, 600);
+            blit(bmp, screen, 0, 0, 0, 0, xsize, ysize);
         }
         show_mouse(screen);
     }

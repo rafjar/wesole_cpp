@@ -7,7 +7,6 @@
 class Macierz {
     public:
         Macierz(int x, int y); // tworzy pustą macierz n x m
-        double element(int x, int y) const; // zwraca element macierzy (kopia przez wartość)
         double &element(int x, int y); // zwraca ref. do el. macierzy
         std::pair<int, int> rozmiar() const;
 
