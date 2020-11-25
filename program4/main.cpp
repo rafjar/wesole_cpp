@@ -11,7 +11,7 @@ Macierz macierz(xsize, ysize); // Macierz wartości temp pixeli
 int end = 0; // Zmienna do kończenia symulacji
 const double psi = 0.99; // Stała psi (ze wzorku)
 const double delta_t = 0.4; // Stała delta_t (ze wzorku)
-const int FLAME_SIZE = 5; // Rozmiar płomienia spawacza
+int FLAME_SIZE = 5; // Rozmiar płomienia spawacza
 
 // Kolorowanie okienka
 BITMAP *koloruj(BITMAP *bmp) {
@@ -62,6 +62,14 @@ END_OF_FUNCTION(przerwanie_myszy)
 int przerwanie_klawiatury(int k) {
     if((k>>8) == KEY_ESC)
         end = 1;
+    else if((k>>8) == KEY_A) {
+        if(FLAME_SIZE > 1)
+            --FLAME_SIZE;
+    }
+    else if((k>>8) == KEY_S) {
+        if(FLAME_SIZE < 8)
+            ++FLAME_SIZE;
+    }
     return 0;
 }
 END_OF_FUNCTION(przerwanie_klawiatury)
