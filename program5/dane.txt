@@ -1,6 +1,5 @@
 ## Program testowy
 # Rampa od 25C do 100C z szybkością 5C/s
-klekot
 rampa 25.0 100.0 5.0
 # Wygrzewanie izotermiczne przez 5s
 izotermiczne 5
@@ -10,4 +9,5 @@ skocz 200.5
 izotermiczne 5.0
 # Rampa od 200.5C do 25C z szybkoscia 10C/s
 rampa 200.5 25 10
+klekot
 rampa 30 40 1

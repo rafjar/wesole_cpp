@@ -36,17 +36,17 @@ void zrob_ramke() {
 
 void odswiez_temperature(float temp) {
     clear();
-    zrob_ramke();
-    std::ostringstream s_temp;
-    s_temp << std::fixed << std::setprecision(1) << temp;
-    std::string text = "Temp. " + s_temp.str() + " C";
-
     if(temp < 100)
         attron(COLOR_PAIR(1));
     else if(temp < 200)
         attron(COLOR_PAIR(2));
     else
         attron(COLOR_PAIR(3));
+    zrob_ramke();
+    std::ostringstream s_temp;
+    s_temp << std::fixed << std::setprecision(1) << temp;
+    std::string text = "Temp. " + s_temp.str() + " C";
+
 
     mvprintw(YSIZE/2, XSIZE/2-text.size()/2, text.c_str());
     refresh();
@@ -54,8 +54,8 @@ void odswiez_temperature(float temp) {
 
 void napisz(std::string text) {
     clear();
-    zrob_ramke();
     attron(COLOR_PAIR(1));
+    zrob_ramke();
     mvprintw(YSIZE/2, XSIZE/2-text.size()/2, text.c_str());
     refresh();
 }
