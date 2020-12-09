@@ -23,10 +23,10 @@ class TurboVector {
         T& front();
         T& back();
 
-        T* begin();
-        T* end();
-        const T* begin() const;
-        const T* end() const;
+        constexpr T* begin();
+        constexpr T* end();
+        constexpr const T* begin() const;
+        constexpr const T* end() const;
 
         bool empty() const;
         uint size() const;
@@ -75,19 +75,19 @@ template<typename T> T& TurboVector<T>::back() {
     return values_[size_-1];
 }
 
-template<typename T> T* TurboVector<T>::begin() {
+template<typename T> constexpr T* TurboVector<T>::begin() {
     return values_;
 }
 
-template<typename T> T* TurboVector<T>::end() {
+template<typename T> constexpr T* TurboVector<T>::end() {
     return values_+size_;
 }
 
-template<typename T> const T* TurboVector<T>::begin() const {
+template<typename T> constexpr const T* TurboVector<T>::begin() const {
     return values_;
 }
 
-template<typename T> const T* TurboVector<T>::end() const {
+template<typename T> constexpr const T* TurboVector<T>::end() const {
     return values_+size_;
 }
 
