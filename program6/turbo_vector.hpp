@@ -25,8 +25,8 @@ class TurboVector {
 
         T* begin();
         T* end();
-        T* begin() const;
-        T* end() const;
+        const T* begin() const;
+        const T* end() const;
 
         bool empty() const;
         uint size() const;
@@ -83,11 +83,11 @@ template<typename T> T* TurboVector<T>::end() {
     return values_+size_;
 }
 
-template<typename T> T* TurboVector<T>::begin() const {
+template<typename T> const T* TurboVector<T>::begin() const {
     return values_;
 }
 
-template<typename T> T* TurboVector<T>::end() const {
+template<typename T> const T* TurboVector<T>::end() const {
     return values_+size_;
 }
 
