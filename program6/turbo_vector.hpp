@@ -18,27 +18,31 @@ class TurboVector {
         TurboVector(uint size, const T& val);
         ~TurboVector();
 
-        T& at(uint indx);
-        T& operator[](uint indx);
-        T& front();
-        T& back();
+        constexpr T& at(uint indx);
+        constexpr T& operator[](uint indx);
+        constexpr T& front();
+        constexpr T& back();
 
         constexpr T* begin();
         constexpr T* end();
         constexpr const T* begin() const;
         constexpr const T* end() const;
 
-        bool empty() const;
-        uint size() const;
-        uint capacity() const;
+        constexpr bool empty() const;
+        constexpr uint size() const;
+        constexpr uint capacity() const;
 
         void clear();
+        void erase();
         void push_back(const T& val);
         void push_at(uint indx, const T& val);
         void pop_back();
 
         void print() const;
 };
+
+template<typename T> bool is_vector = false;
+template<typename T> bool is_vector<TurboVector<T>> = true;
 
 template<typename T> constexpr TurboVector<T>::TurboVector()
     : capacity_(0), size_(0)
@@ -59,19 +63,19 @@ template<typename T> TurboVector<T>::~TurboVector() {
         delete[] values_;
 }
 
-template<typename T> T& TurboVector<T>::at(uint indx) {
+template<typename T> constexpr T& TurboVector<T>::at(uint indx) {
     return values_[indx];
 }
 
-template<typename T> T& TurboVector<T>::operator[](uint indx) {
+template<typename T> constexpr T& TurboVector<T>::operator[](uint indx) {
     return values_[indx];
 }
 
-template<typename T> T& TurboVector<T>::front() {
+template<typename T> constexpr T& TurboVector<T>::front() {
     return values_[0];
 }
 
-template<typename T> T& TurboVector<T>::back() {
+template<typename T> constexpr T& TurboVector<T>::back() {
     return values_[size_-1];
 }
 
@@ -91,24 +95,27 @@ template<typename T> constexpr const T* TurboVector<T>::end() const {
     return values_+size_;
 }
 
-template<typename T> bool TurboVector<T>::empty() const {
+template<typename T> constexpr bool TurboVector<T>::empty() const {
     if(size_ == 0)
         return true;
     return false;
 }
 
-template<typename T> uint TurboVector<T>::size() const {
+template<typename T> constexpr uint TurboVector<T>::size() const {
     return size_;
 }
 
-template<typename T> uint TurboVector<T>::capacity() const {
+template<typename T> constexpr uint TurboVector<T>::capacity() const {
     return capacity_;
 }
 
 template<typename T> void TurboVector<T>::clear() {
-    if(capacity_ != 0)
-        delete[] values_;
+    size_ = 0;
+}
 
+template<typename T> void TurboVector<T>::erase() {
+    if(capacity_ > 0)
+        delete[] values_;
     capacity_ = 0;
     size_ = 0;
 }
