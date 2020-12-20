@@ -3,7 +3,12 @@
 
 #include <iostream>
 
+template<typename T> class TurboVector;
+
 using uint = unsigned int;
+
+template<typename T> bool is_vector = false;
+template<typename T> bool is_vector<TurboVector<T>> = true;
 
 template<typename T>
 class TurboVector {
@@ -40,9 +45,6 @@ class TurboVector {
 
         void print() const;
 };
-
-template<typename T> bool is_vector = false;
-template<typename T> bool is_vector<TurboVector<T>> = true;
 
 template<typename T> constexpr TurboVector<T>::TurboVector()
     : capacity_(0), size_(0)

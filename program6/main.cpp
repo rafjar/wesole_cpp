@@ -20,4 +20,9 @@ int main() {
     for(const auto &i : vec)
         vec2.push_back(i);
     vec2.print();
+
+    std::cout << "Czy ten typ jest moim wektorem? " << is_vector<float> << std::endl;
+    std::cout << "Czy ten typ jest moim wektorem? " << is_vector<bool> << std::endl;
+    std::cout << "Czy ten typ jest moim wektorem? " << is_vector<TurboVector<float>> << std::endl;
+    std::cout << "Czy ten typ jest moim wektorem? " << is_vector<TurboVector<int>> << std::endl;
 }
